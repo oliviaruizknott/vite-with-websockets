@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
+
 import "./App.css";
 
 const App = () => {
   // on mount, connect to web sockets
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8082");
+    const ws = new WebSocket("ws://10.0.0.70:8082");
 
-    ws.addEventListener("open", (ws) => {
+    ws.addEventListener("open", () => {
       console.log("We are connected!");
+
+      ws.send("Hey, how’s it goin’.");
+    });
+
+    ws.addEventListener("message", (e) => {
+      console.log(e.data);
     });
   }, []);
 
